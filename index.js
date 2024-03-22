@@ -1,10 +1,11 @@
 const express=require("express");
 const dotenv=require("dotenv");
 const { default: mongoose } = require("mongoose");
-
+const userRoutes=require("./Routes/userRoutes")
 
 const app=express();
 dotenv.config();
+app.use(express.json());
 
 const connectDb=async()=>{
     try {
@@ -22,7 +23,7 @@ app.get("/",(req,res)=>{
     res.send("api is running")
 })
 
-
+app.use("/user",userRoutes)
 
 
 

@@ -4,7 +4,11 @@ const generateToken = require('../Config/generateToken');
 
 const loginController=async(req,res)=>{
     const {name,password} = req.body;
-    const user=User.findOne({name});
+    const user = await User.findOne({ name });
+
+    console.log("user data", user)
+    console.log(await user.matchPassword(password));
+
     if(user &&( await user.matchPassword(password))){
         res.json({
             _id: user._id,
@@ -13,14 +17,17 @@ const loginController=async(req,res)=>{
             isAdmin: user.isAdmin,
             token:generateToken(user._id),
         })
+    
     }else{
+        res.status(403)
         throw new Error("Invalid password and username")
     }
 };
 
+
 const registerController=async(req,res)=>{
     const {name,email,password} = req.body;
-
+console.log(name,email,password)
     if(!name || !email || !password){
         res.send(400)
            throw Error("All necessary input fields have not been provided");     
@@ -56,7 +63,7 @@ const registerController=async(req,res)=>{
 
         })
       }else{
-        res.status(404);
+        res.status(404,console.log(error));
         throw new Error("Registration error")
       }
 };

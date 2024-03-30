@@ -3,8 +3,14 @@ const dotenv=require("dotenv");
 const { default: mongoose } = require("mongoose");
 const userRoutes=require("./Routes/userRoutes")
 
-const app=express();
+var cors=require('cors');
+
+const app = express();
+app.use(cors({
+  origin : "*"
+}))
 dotenv.config();
+
 app.use(express.json());
 
 const connectDb=async()=>{

@@ -18,5 +18,5 @@ const messageModel = mongoose.Schema({
     timeStamp : true,
 })
 
-const Messages = mongoose.Model("Messages", messageModel)
+const Messages = mongoose.model("Messages", messageModel)
 module.exports = Messages
